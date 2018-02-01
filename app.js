@@ -1,13 +1,19 @@
 const Koa = require('koa');
 
-// 处理URL路由
-const router =  require('koa-router')();
+// 处理URL路由(router导入的是一个函数)
+// const router =  require('koa-router')();
+
 // 处理request 的body请求
 const bodyParser = require('koa-bodyparser');
+// 导入router mapping middleware:
+const routesMapping = require('./src/controllers/routesMapping');
 
 const app = new Koa();
 
+// add bodyparser middleware:
 app.use(bodyParser());
+// add router middleware:
+app.use(routesMapping());
 
 // log request URL:
 app.use(async (ctx, next) => {
@@ -15,17 +21,6 @@ app.use(async (ctx, next) => {
     await next();
 });
 
-// add url-route:
-router.get('/hello/:name', async (ctx, next) => {
-    var name = ctx.params.name;
-    ctx.response.body = `<h1>hello, ${name}!</h1>`;
-});
-router.get('/', async (ctx, next) => {
-    ctx.response.body = '<h1>Index</h1>';
-});
-
-// add router middleware:
-app.use(router.routes());
 
 // return html
 // app.use(async (ctx, next)=>{
