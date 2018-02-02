@@ -22,5 +22,8 @@
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.12"
   }
 }
